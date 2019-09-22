@@ -17,6 +17,7 @@ Cypress.Commands.add('login', () => {
     cy.visit('#/login')
     cy.get('[placeholder=Email]').type('mal@expleo.com')
     cy.get('[placeholder=Password]').type('malexpleo#{enter}')
+    cy.hash().should('eq', '#/')
 })
 
 
