@@ -10,4 +10,9 @@ describe('/conduitSettings' , () => {
         cy.contains('h1','Your Settings')
     })
 
+    it('navigates to #/settings' , () => {
+        cy.contains('Your Settings')
+        cy.hash().should('eq', '#/settings')
+    })
+
 })
