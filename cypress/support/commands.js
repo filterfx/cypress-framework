@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -13,13 +15,28 @@
 // Cypress.Commands.add("login", (email, password) => { ... })
 
 
-Cypress.Commands.add('login', () => {
-    cy.visit('#/login')
-    cy.get('[placeholder=Email]').type('mal@expleo.com')
-    cy.get('[placeholder=Password]').type('malexpleo#{enter}')
-    cy.hash().should('eq', '#/')
-})
+// Cypress.Commands.add('login', () => {
+//     cy.visit('#/login')
+//     cy.get('[placeholder=Email]').type('mal@expleo.com')
+//     cy.get('[placeholder=Password]').type('malexpleo#{enter}')
+//     cy.hash().should('eq', '#/')
+// })
 
+Cypress.Commands.add('login' , () => {
+    cy.request({
+        method: 'POST',
+        url: 'https://conduit.productionready.io/api/users/login',
+        body: {
+            user: {
+                email: 'mal@expleo.com',
+                password: 'malexpleo#'
+            }
+        }
+    })
+    .then((resp) => {
+        window.localStorage.setItem('jwt' , resp.body.user.token)
+    })
+})
 
 //
 //
